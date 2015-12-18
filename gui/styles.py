@@ -47,3 +47,9 @@ tool_css = """
     background-color: {bg};
      }}
      """.format(**options)
+
+tool_button_css = """
+    QPushButton {{
+    border-style: none;
+     }}
+     """.format(**options)

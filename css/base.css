@@ -11,8 +11,14 @@ lview {
 }
 
 RightDisplay {
-    border-right: 5px solid #b6b6b6;
+    border-style: none;
     border-left: none;
     border-top: 5px solid #b6b6b6;
     border-bottom: 5px solid #b6b6b6;
+}
+
+ToolButton {
+    border-style: none;
+    background-color: green;
+
 }

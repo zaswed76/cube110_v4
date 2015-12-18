@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PyQt4 import QtGui
+from gui import styles
 
 _margin = 0
 _spacing = 0
@@ -21,3 +22,7 @@ class VBoxLayout(QtGui.QVBoxLayout):
         self.setMargin(_margin)
         self.setSpacing(_spacing)
 
+class ToolButton(QtGui.QPushButton):
+    def __init__(self, *__args):
+        super().__init__(*__args)
+        self.setStyleSheet(styles.tool_button_css)

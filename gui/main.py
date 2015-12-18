@@ -28,6 +28,8 @@ class BaseWindow(QtGui.QWidget):
         self.box.addWidget(self.game_display)
         self.box.addWidget(self.tool)
 
+        self.tool.add_buttons("next", "return")
+
 
 
 
