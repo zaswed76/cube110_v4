@@ -26,3 +26,11 @@ class ToolButton(QtGui.QPushButton):
     def __init__(self, *__args):
         super().__init__(*__args)
         self.setStyleSheet(styles.tool_button_css)
+
+
+
+
+
+class MainWindow(QtGui.QMainWindow):
+    def __init__(self):
+        super().__init__()

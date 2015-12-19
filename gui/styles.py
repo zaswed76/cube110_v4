@@ -50,6 +50,7 @@ tool_css = """
 
 tool_button_css = """
     QPushButton {{
-    border-style: none;
+    border: none
+    background-color: {bg};
      }}
      """.format(**options)
