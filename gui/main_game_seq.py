@@ -38,12 +38,16 @@ class BaseWindow(QtGui.QWidget):
 class BaseController(BaseWindow):
     def __init__(self):
         super().__init__()
+        self.step = None
 
     def next_(self):
         print("next")
 
     def help_(self):
         print("help")
+
+    def set_step(self, step):
+        self.step = step
 
 
 if __name__ == '__main__':
@@ -56,8 +60,4 @@ if __name__ == '__main__':
     pxm = QtGui.QPixmap(img)
     item = gui.ImageItem(pxm, scene=main.left_model)
     main.left_model.draw(item)
-
-
-
-
     sys.exit(app.exec_())

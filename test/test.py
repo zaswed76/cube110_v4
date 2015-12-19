@@ -2,6 +2,21 @@
 # -*- coding: utf-8 -*-
 
 
-s = "{size}, {color}, {color}".format(size="5", color="#000000")
+# n = int(input(">> "))
+# result = []
+# for i in range(n + 1):
+#     lst = []
+#     lst.extend(i * [i])
+#     result.extend(lst)
+#
+# print(*result, sep=" ")
 
-print(s)
+a = int(input(">> "))
+result = []
+for n in range(1, a + 1):
+    seq = [n] * n      #  последовательность из n  n раз
+    result.extend(seq) # добавить seq в результирующий список
+
+print(*result, sep=" ")
+
+
