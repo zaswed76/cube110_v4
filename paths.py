@@ -4,11 +4,20 @@
 import os
 
 __resource_dir = r"D:\0SYNC\python_projects\all_cubes110_resorce\resources"
+# имена каталогова ресурсов
+__root = os.path.dirname(__file__)
+
+# ./
 __RESOURCE = "resources"
+# /
+__CSS = "css"
+__DATA = "data"
+
+# ./resources
 __ICONS = "icons"
 __IMAGE = "image"
-__CSS = "css"
-__root = os.path.dirname(__file__)
+
+
 
 
 def get_root():
@@ -33,6 +42,9 @@ def get_image_dir():
 
 def get_css_dir():
     return os.path.join(get_root(), __CSS)
+
+def get_data_dir():
+    return os.path.join(get_root(), __DATA)
 
 if __name__ == '__main__':
     print(get_resource_dir())
