@@ -27,6 +27,8 @@ _METHOD_ERROR_ASSERT_TEMPLATE = "метод < {} > надо переопреде
 class Data(dict):
     def __init__(self):
         super().__init__()
+        assert hasattr(self, "get_data")
+
 
     def load(self, path):
         if self:
@@ -42,9 +44,10 @@ class Data(dict):
 
 
 class JsonData(Data):
-    def get_data(self, path):
-        with open(path, "r") as obj:
-            return json.load(obj)
+    pass
+    # def get_data2(self, path):
+    #     with open(path, "r") as obj:
+    #         return json.load(obj)
 
 
 class ShelveData(Data):
@@ -54,20 +57,20 @@ class ShelveData(Data):
 
 
 if __name__ == '__main__':
-    # import paths
-    # json_file = os.path.join(paths.get_data_dir(),
-    #                          "base_geometry_dict.json")
+    import paths
+    json_file = os.path.join(paths.get_data_dir(),
+                             "base_geometry_dict.json")
     # shelve_file = os.path.join(paths.get_data_dir(), "dict_shl",
     #                            "secondary_geometry_shl.dat")
     #
     #
-    # def load(path, data_cls):
-    #     data = data_cls()
-    #     data.load(path)
-    #     print(data)
-    #
-    #
-    # load(json_file, JsonData)
+    def load(path, data_cls):
+        data = data_cls()
+        # data.load(path)
+        # print(data)
+
+
+    load(json_file, JsonData)
     # load(shelve_file, ShelveData)
-    import doctest
-    doctest.testmod()
+    # import doctest
+    # doctest.testmod()
