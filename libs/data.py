@@ -7,7 +7,7 @@
 класс Data предоставляет "интерфейс"  load
 который загружает базу из файла
 
-в классе потомке требуется перегрузк метода get_data
+в классе потомке требуется реализация метода get_data
 
 >>> data = JsonData()
 >>> data.load("path")
@@ -26,9 +26,12 @@ _METHOD_ERROR_ASSERT_TEMPLATE = "метод < {} > надо переопреде
 
 class Data(dict):
     def __init__(self):
+        """
+        в классе потомке требуется реализация метода get_data
+        метод должен вернуть dict
+        """
         super().__init__()
         assert hasattr(self, "get_data")
-
 
     def load(self, path):
         if self:
@@ -39,15 +42,13 @@ class Data(dict):
 
         self.update(self.get_data(path))
 
-    def get_data(self, path):
-        raise TypeError(_METHOD_ERROR_ASSERT_TEMPLATE.format(Data.get_data.__name__))
+
 
 
 class JsonData(Data):
-    pass
-    # def get_data2(self, path):
-    #     with open(path, "r") as obj:
-    #         return json.load(obj)
+    def get_data(self, path):
+        with open(path, "r") as obj:
+            return json.load(obj)
 
 
 class ShelveData(Data):
@@ -66,8 +67,8 @@ if __name__ == '__main__':
     #
     def load(path, data_cls):
         data = data_cls()
-        # data.load(path)
-        # print(data)
+        data.load(path)
+        print(data)
 
 
     load(json_file, JsonData)
