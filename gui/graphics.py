@@ -12,8 +12,7 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.pixmap = pixmap
         self.setPixmap(self.pixmap)
 
-    def mousePressEvent(self, *args, **kwargs):
-        print("!!!!!!!")
+
 
 
 class View(QtGui.QGraphicsView):
