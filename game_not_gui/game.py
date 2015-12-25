@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from game_not_gui import level_models
+from game_not_gui import level_models as levels
+
 
 class Game:
     _level_id = 0
-    def __init__(self, data_levels):
-        self.data_levels = data_levels
+    def __init__(self):
+        self._data_levels = None
         self._current_level = None
+
+
+    def set_image_dir(self, path):
+        self._image_dir_path = path
+
 
 
     @property
@@ -18,19 +24,23 @@ class Game:
     def current_level(self):
         return self._current_level
 
-    def increase_level_id(self):
+    def _increase_level_id(self):
         self._level_id += 1
 
     def set_current_level(self):
-        level_line = self.data_levels[self._level_id]
+        level_line = self._data_levels[self._level_id]
         self._current_level = getattr(
-            level_models, level_line[2])(level_line[0], level_line[1])
+            levels, level_line["level_name"])(
+            level_line["base_pxm"], level_line["sec_pxm"])
+        self._increase_level_id()
 
-
-
+    def set_data_level(self, data_levels):
+        self._data_levels = data_levels
 
 
 if __name__ == '__main__':
     from game_not_gui import data_levels
-    game = Game(data_levels.levels)
-    game.set_level()
+
+    game = Game()
+    game.set_data_level(data_levels.levels)
+    game.set_current_level()

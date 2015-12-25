@@ -3,7 +3,7 @@
 
 
 levels = [
-    [(1, 2, 3), (1, 2, 3), "RememberLevel", "RememberInfo"],
-    [(1, 2, 3), (1, 2, 3), "SortLevel", "SortInfo"],
-    [(1, 2, 3), (1, 2, 3), "ReverseLevel", "ReverseInfo"]
+    [(0, 1), (0, 1), "RememberLevel", "RememberInfo"],
+    [(1, 1), (1, 1), "SortLevel", "SortInfo"],
+    [(2, 2), (2, 2), "ReverseLevel", "ReverseInfo"]
 ]

@@ -12,6 +12,10 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.pixmap = pixmap
         self.setPixmap(self.pixmap)
 
+    def mousePressEvent(self, *args, **kwargs):
+        print("!!!!!!!")
+
+
 class View(QtGui.QGraphicsView):
     def __init__(self, size, scene, parent, *__args):
         super().__init__(*__args)
@@ -23,8 +27,9 @@ class Scene(QtGui.QGraphicsScene):
     def __init__(self, parent, *__args):
         super().__init__(*__args)
 
-    def draw(self, item):
-        self.addItem(item)
+    def add_items(self, *items):
+        for item in items:
+            self.addItem(item)
 
 
 

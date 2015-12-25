@@ -6,7 +6,6 @@ import os
 import paths
 from gui import graphics as gui
 from gui import templates, styles, tool
-
 from PyQt4 import QtGui
 
 size_display = (602, 602)
@@ -15,24 +14,40 @@ tool_icon_size = 28
 
 
 class BaseWindow(QtGui.QWidget):
-    def __init__(self):
+    def __init__(self, **kwargs):
+        """
+        __init__(graphics.Scene base_scene=None,
+         graphics.Scene secondary_scene=None, QWidget display=None)
+        """
         super().__init__()
-        self.left_model = gui.Scene(self)
-        self.right_model = gui.Scene(self)
-        self.game_display = gui.TwoDisplay(self.left_model,
-                                           self.right_model,
-                                           size_display)
-        self.tool = tool.ToolBar(self, paths.get_icon_dir(),
-                                 height_tool)
-        self.tool.setStyleSheet(styles.tool_css)
-        self.tool.set_icon_size(tool_icon_size)
+
         self.box = templates.VBoxLayout(self)
-        self.box.addWidget(self.game_display)
+
+    def add_display(self, display):
+        """
+
+        :param display: QWidget
+        """
+        self.box.addWidget(display)
+
+    def add_tool(self, height_tool=height_tool,
+                 styles=styles.tool_css, icon_size=tool_icon_size,
+                 icon_dir=paths.get_icon_dir()):
+        self.tool = tool.ToolBar(self, icon_dir,
+                                 height_tool)
+        self.tool.setStyleSheet(styles)
+        self.tool.set_icon_size(icon_size)
         self.box.addWidget(self.tool)
 
-        self._tool_buttons = [10, "next", 805, "help"]
+    def set_tool_buttons(self, *args):
+        """
 
-        self.tool.add_buttons(*self._tool_buttons)
+        :param args: int = пустота в пикселях
+                     str = имя иконки без расширенияенн
+                     затем надо определить в классе
+        родителе метод с < именем + _>
+        """
+        self.tool.add_buttons(*args)
 
 
 class BaseController(BaseWindow):

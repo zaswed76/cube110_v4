@@ -3,7 +3,7 @@
 
 import os
 
-__resource_dir = r"D:\0SYNC\python_projects\all_cubes110_resorce\resources"
+__resource_dir = r"E:\SERG\projects\all_cubes\resources"
 # имена каталогова ресурсов
 __root = os.path.dirname(__file__)
 
