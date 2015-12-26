@@ -9,6 +9,7 @@ class Game:
 
     def __init__(self):
         self._data_levels = dict()
+        self._data_geometry = dict()
         self._current_level = None
 
     def set_image_dir(self, path):
@@ -37,11 +38,14 @@ class Game:
         )
         self._increase_level_id()
 
+    def set_data_geometry(self, data_geometry):
+        self._data_geometry.update(data_geometry)
+
     def set_data_level(self, data_levels):
         self._data_levels.update(data_levels)
 
 if __name__ == '__main__':
-    from game_not_gui import data_levels
+    from two_game import data_levels
 
     game = Game()
     game.set_data_level(data_levels.levels)

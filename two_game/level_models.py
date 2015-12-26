@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from os import path
-from PyQt4 import QtGui
 from gui.graphics import ImageItem, Scene
 
 
@@ -18,6 +16,7 @@ class ImageModel(ImageItem):
 
     def mousePressEvent(self, *args, **kwargs):
         print(self.name, "!!!!!!!")
+
 
 class Levels:
     def __init__(self, seq_base_pixmap, seq_secondary_pixmap,
@@ -67,6 +66,9 @@ class RememberLevel(Levels):
     def base_img_objects(self):
         # список объектов ImageModel
         return self._base_img_objects
+
+    def remember(self):
+        pass
 
     @property
     def secondary_img_objects(self):

@@ -25,22 +25,23 @@ _METHOD_ERROR_ASSERT_TEMPLATE = "метод < {} > надо переопреде
 
 
 class Data(dict):
-    def __init__(self):
+    def __init__(self, path):
         """
         в классе потомке требуется реализация метода get_data
         метод должен вернуть dict
         """
         super().__init__()
+        self.path = path
         assert hasattr(self, "get_data")
 
-    def load(self, path):
+    def load(self):
         if self:
             self.clear()
-        if not os.path.isfile(path):
+        if not os.path.isfile(self.path):
             raise FileNotFoundError(
-                _FILE_ASSERT_TEMPLATE.format(path))
+                _FILE_ASSERT_TEMPLATE.format(self.path))
 
-        self.update(self.get_data(path))
+        self.update(self.get_data(self.path))
 
 
 
