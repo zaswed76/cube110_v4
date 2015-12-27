@@ -11,11 +11,11 @@ class ImageModel(ImageItem):
         :param name:
         :param geometry:
         """
-        super().__init__(pixmap, parent=None, scene=None)
-        self.name = name
+        super().__init__(pixmap, name, parent=None, scene=None)
+
 
     def mousePressEvent(self, *args, **kwargs):
-        print(self.name, "!!!!!!!")
+        print("!!!!!!!")
 
 
 class Levels:

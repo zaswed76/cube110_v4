@@ -7,10 +7,23 @@ from gui import templates
 from gui import styles
 
 class ImageItem(QtGui.QGraphicsPixmapItem):
-    def __init__(self, pixmap, parent=None, scene=None):
+    def __init__(self, pixmap, name, parent=None, scene=None):
         super().__init__()
-        self.pixmap = pixmap
-        self.setPixmap(self.pixmap)
+        self._name = name
+        self._parent = parent
+        self._scene = scene
+        self._pixmap = pixmap
+        self.setPixmap(self._pixmap)
+
+    def set_geometry(self, data):
+        print(data)
+
+    @property
+    def name(self):
+        return self._name
+
+
+
 
 
 
@@ -25,11 +38,22 @@ class View(QtGui.QGraphicsView):
 class Scene(QtGui.QGraphicsScene):
     def __init__(self, parent, *__args):
         super().__init__(*__args)
+        self.__geometry = {}
 
     def add_items(self, *items):
         for item in items:
             self.addItem(item)
+            name = item.name
+            item.set_geometry(self.__geometry[name])
 
+    def set_geometry(self, data):
+        self.__geometry.clear()
+        self.__geometry.update(data)
+        # print(self.__geometry)
+
+    @property
+    def geometry(self):
+        return self.__geometry
 
 
 class TwoDisplay(QtGui.QWidget):

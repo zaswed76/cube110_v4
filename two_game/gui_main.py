@@ -37,12 +37,15 @@ class BaseWindow(main_game_seq.BaseWindow):
         # конвертируем в dict data_levels.levels
         # добавляем в dict list-of-QPixmap
         self._convert_data_lst_to_dict(data_levels.levels)
+
         self.data_geometry = data.JsonData(json_file)
         self.data_geometry.load()
+        self.base_scene.set_geometry(self.data_geometry)
+
 
         self.game = game.Game()
         self.game.set_data_level(self.level_dict())
-        self.game.set_data_geometry(self.data_geometry)
+
 
 
 
@@ -104,5 +107,5 @@ if __name__ == '__main__':
     main = BaseWindow()
     main.show()
     main.next_()
-    print(main.data_geometry)
+    # print(main.data_geometry)
     sys.exit(app.exec_())

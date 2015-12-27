@@ -27,4 +27,3 @@ class LevelRevers(Levels):
     def play(self):
         print("revers")
 
-    def increase the counter
