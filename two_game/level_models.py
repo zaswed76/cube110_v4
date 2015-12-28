@@ -14,8 +14,8 @@ class ImageModel(ImageItem):
         super().__init__(pixmap, name, parent=None, scene=None)
 
 
-    def mousePressEvent(self, *args, **kwargs):
-        print("!!!!!!!")
+    # def mousePressEvent(self, *args, **kwargs):
+    #     print(self.name)
 
 
 class Levels:

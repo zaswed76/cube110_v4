@@ -10,6 +10,7 @@ from gui import main_game_seq, graphics
 from two_game import game, data_levels
 
 size_display = (602, 602)
+scene_geometry = (0, 0, 600, 600)
 EXT = ".png"
 json_file = os.path.join(paths.get_data_dir(),
                              "base_geometry_dict.json")
@@ -23,8 +24,10 @@ class BaseWindow(main_game_seq.BaseWindow):
 
     def __init__(self):
         super().__init__()
-        self.base_scene = graphics.Scene(self)
-        self.secondary_scene = graphics.Scene(self)
+        self.base_scene = graphics.Scene(self, scene_geometry,
+                                         self.graphic_item_press)
+        self.secondary_scene = graphics.Scene(self, scene_geometry,
+                                         self.graphic_item_press)
         self.display = graphics.TwoDisplay(self.base_scene,
                                            self.secondary_scene,
                                            size_display)
@@ -38,20 +41,17 @@ class BaseWindow(main_game_seq.BaseWindow):
         # добавляем в dict list-of-QPixmap
         self._convert_data_lst_to_dict(data_levels.levels)
 
-        self.data_geometry = data.JsonData(json_file)
-        self.data_geometry.load()
-        self.base_scene.set_geometry(self.data_geometry)
+        self.base_geometry = data.JsonData(json_file)
+        self.base_geometry.load()
+        self.base_scene.set_geometry(self.base_geometry)
 
 
         self.game = game.Game()
         self.game.set_data_level(self.level_dict())
 
 
-
-
-
-
-
+    def graphic_item_press(self, **kwargs):
+        print(kwargs)
 
     def next_(self):
         self.game.set_current_level()
