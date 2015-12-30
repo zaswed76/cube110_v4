@@ -3,7 +3,7 @@
 
 import os
 
-__resource_dir = r"E:\SERG\projects\all_cubes\resources"
+__resource_dir = r"E:\serg\Projects\projects\all_cubes\resources"
 # имена каталогова ресурсов
 __root = os.path.dirname(__file__)
 
@@ -45,6 +45,8 @@ def get_css_dir():
 
 def get_data_dir():
     return os.path.join(get_root(), __DATA)
+
+
 
 if __name__ == '__main__':
     print(get_resource_dir())

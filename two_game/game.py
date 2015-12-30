@@ -4,12 +4,11 @@
 from two_game import level_models as levels
 
 
+
 class Game:
     _level_id = 0
-
-    def __init__(self):
-        self._data_levels = dict()
-        self._data_geometry = dict()
+    def __init__(self, data_levels):
+        self._data_levels = data_levels
         self._current_level = None
 
     def set_image_dir(self, path):
@@ -23,7 +22,7 @@ class Game:
     def current_level(self):
         return self._current_level
 
-    def _increase_level_id(self):
+    def increase_level_id(self):
         self._level_id += 1
 
     def set_current_level(self):
@@ -36,13 +35,23 @@ class Game:
             level_line["sec_names"]
 
         )
-        self._increase_level_id()
 
-    def set_data_geometry(self, data_geometry):
-        self._data_geometry.update(data_geometry)
 
     def set_data_level(self, data_levels):
         self._data_levels.update(data_levels)
+
+class OneGameWindow(Game):
+    def __init__(self, data_levels):
+        super().__init__(data_levels)
+
+    def set_current_level(self):
+        level_line = self._data_levels[self._level_id]
+        self._current_level = getattr(
+            levels, level_line["level_name"])(
+            level_line["base_pxm"],
+            level_line["base_names"],
+        )
+
 
 if __name__ == '__main__':
     from two_game import data_levels

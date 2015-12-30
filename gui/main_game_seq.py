@@ -20,7 +20,7 @@ class BaseWindow(QtGui.QWidget):
          graphics.Scene secondary_scene=None, QWidget display=None)
         """
         super().__init__()
-
+        self.tool = None
         self.box = templates.VBoxLayout(self)
 
     def add_display(self, display):
@@ -30,13 +30,10 @@ class BaseWindow(QtGui.QWidget):
         """
         self.box.addWidget(display)
 
-    def add_tool(self, height_tool=height_tool,
+    def add_tool(self, tool_bar, height_tool=height_tool,
                  styles=styles.tool_css, icon_size=tool_icon_size,
                  icon_dir=paths.get_icon_dir()):
-        self.tool = tool.ToolBar(self, icon_dir,
-                                 height_tool)
-        self.tool.setStyleSheet(styles)
-        self.tool.set_icon_size(icon_size)
+        self.tool = tool_bar
         self.box.addWidget(self.tool)
 
     def set_tool_buttons(self, *args):
@@ -48,6 +45,8 @@ class BaseWindow(QtGui.QWidget):
         родителе метод с < именем + _>
         """
         self.tool.add_buttons(*args)
+
+
 
 
 class BaseController(BaseWindow):

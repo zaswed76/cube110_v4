@@ -35,12 +35,12 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.allow_edit()
 
     def mousePressEvent(self, event):
-        self.setSelected(True)
         self._main_press_method(name=self.name)
-
-    def mouseReleaseEvent(self, event):
-        print()
-        print(self.get_geometry())
+    #
+    # def mouseReleaseEvent(self, event):
+    #     pass
+    #     # print()
+    #     # print(self.get_geometry())
 
     def set_main_press_method(self, method):
         self._main_press_method = method
@@ -67,9 +67,9 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.setFlags(
             QtGui.QGraphicsItem.ItemIsMovable | \
             QtGui.QGraphicsItem.ItemIsSelectable)
-
-    def disable_edit(self):
-        self.setFlags(QtGui.QGraphicsItem.ItemSendsGeometryChanges)
+    #
+    # def disable_edit(self):
+    #     self.setFlags(QtGui.QGraphicsItem.ItemSendsGeometryChanges)
 
     def get_geometry(self):
         x, y = self.pos().x(), self.pos().y()
@@ -131,7 +131,8 @@ class View(QtGui.QGraphicsView):
         super().__init__(*__args)
         self.setFixedSize(*size)
         self.setScene(scene)
-        self.setDragMode(QtGui.QGraphicsView.RubberBandDrag)
+        # self.setDragMode(QtGui.QGraphicsView.RubberBandDrag)
+
 
 
 class Scene(QtGui.QGraphicsScene):
@@ -155,6 +156,9 @@ class Scene(QtGui.QGraphicsScene):
     @property
     def geometry(self):
         return self.__geometry
+
+    def selected_items(self):
+        print(self.selectedItems())
 
 
 class TwoDisplay(QtGui.QWidget):

@@ -19,8 +19,8 @@ class ImageModel(ImageItem):
 
 
 class Levels:
-    def __init__(self, seq_base_pixmap, seq_secondary_pixmap,
-                 seq_base_names, seq_secondary_names):
+    def __init__(self, seq_base_pixmap,
+                 seq_base_names):
         """
 
         :param seq_base_pixmap: list-of-QPixmap
@@ -29,15 +29,13 @@ class Levels:
         :param seq_secondary_names: list-of-str
         """
         self.seq_base_pixmap = seq_base_pixmap
-        self.seq_secondary_pixmap = seq_secondary_pixmap
+
         self.seq_base_names = seq_base_names
-        self.seq_secondary_names = seq_secondary_names
+
         self._base_img_objects = self._get_image_object(
             self.seq_base_pixmap,
             self.seq_base_names)
-        self._secondary_img_objects = self._get_image_object(
-            self.seq_secondary_pixmap,
-            self.seq_secondary_names)
+
 
     def _get_image_object(self, pixmaps_list, names):
         """
@@ -48,20 +46,20 @@ class Levels:
         """
         lst = []
         for pxm, name in zip(pixmaps_list, names):
-            obj = ImageModel(pxm, name, self, Scene)
+            obj = ImageItem(pxm, name, self, Scene)
             lst.append(obj)
         return lst
-
-    def seq_base(self):
-        raise Exception("надо переопределить")
 
 
 class RememberLevel(Levels):
     def __init__(self, seq_base_pixmap, seq_secondary_pixmap,
                  seq_base_names, seq_secondary_names):
-        super().__init__(seq_base_pixmap, seq_secondary_pixmap,
-                         seq_base_names, seq_secondary_names)
-
+        super().__init__(seq_base_pixmap, seq_secondary_pixmap)
+        self.seq_secondary_pixmap = seq_secondary_pixmap
+        self.seq_secondary_names = seq_secondary_names
+        self._secondary_img_objects = self._get_image_object(
+            self.seq_secondary_pixmap,
+            self.seq_secondary_names)
     @property
     def base_img_objects(self):
         # список объектов ImageModel
@@ -78,6 +76,10 @@ class RememberLevel(Levels):
     def press_object(self, name_image):
         return
 
+
+class EditLevel(Levels):
+    def __init__(self, seq_base_pixmap, seq_base_names):
+        super().__init__(seq_base_pixmap, seq_base_names)
 
 if __name__ == '__main__':
     remember = RememberLevel(['1', '2'], [])
