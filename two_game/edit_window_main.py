@@ -40,6 +40,10 @@ class BaseWindow(main_game_seq.BaseWindow):
         self.game = OneGameWindow(self.data_levels)
 
 
+    def set_current_level(self):
+        self.game.create_next_level()
+
+
     def press_method(self, name):
         print(name)
 
@@ -58,5 +62,5 @@ if __name__ == '__main__':
     # app.setStyleSheet(open('./etc/{0}.qss'.format('style'), "r").read())
     main = BaseWindow()
     main.show()
-    main.game.set_current_level()
+    main.set_current_level()
     sys.exit(app.exec_())

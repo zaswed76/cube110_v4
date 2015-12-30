@@ -20,7 +20,7 @@ class RememberLevel(Levels):
 class EditLevel(Levels):
     def __init__(self, level):
         super().__init__(level)
-        print(level.base_paths, "!!!!!!!!!!")
+
 
     def press_object(self, name_image):
         return "EditLevel"

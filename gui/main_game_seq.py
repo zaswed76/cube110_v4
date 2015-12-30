@@ -49,6 +49,7 @@ class BaseWindow(QtGui.QWidget):
 
 
 
+
 class BaseController(BaseWindow):
     def __init__(self):
         super().__init__()
