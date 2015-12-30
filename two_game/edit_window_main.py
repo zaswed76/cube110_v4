@@ -58,4 +58,5 @@ if __name__ == '__main__':
     # app.setStyleSheet(open('./etc/{0}.qss'.format('style'), "r").read())
     main = BaseWindow()
     main.show()
+    main.game.set_current_level()
     sys.exit(app.exec_())

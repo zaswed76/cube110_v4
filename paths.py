@@ -49,4 +49,5 @@ def get_data_dir():
 
 
 if __name__ == '__main__':
-    print(get_resource_dir())
+    pass
+    # print(get_resource_dir())

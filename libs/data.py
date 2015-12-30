@@ -69,7 +69,7 @@ if __name__ == '__main__':
     def load(path, data_cls):
         data = data_cls()
         data.load(path)
-        print(data)
+        # print(data)
 
 
     load(json_file, JsonData)

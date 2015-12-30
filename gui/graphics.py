@@ -76,7 +76,7 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         scale = self.scale()
         rotate = self.geometry_item['rotate']
         mirror = self.geometry_item['mirror']
-        print([x, y], scale, rotate, mirror)
+        # print([x, y], scale, rotate, mirror)
 
     def restart_geometry(self):
         self.setPos(self.geometry_item['x'], self.geometry_item['y'])
@@ -158,7 +158,8 @@ class Scene(QtGui.QGraphicsScene):
         return self.__geometry
 
     def selected_items(self):
-        print(self.selectedItems())
+        pass
+        # print(self.selectedItems())
 
 
 class TwoDisplay(QtGui.QWidget):
