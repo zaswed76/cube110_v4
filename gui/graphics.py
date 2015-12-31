@@ -14,6 +14,10 @@ def pass_press_method(**kwargs):
 class ImageItem(QtGui.QGraphicsPixmapItem):
     rotate_mod = 3
     scale_mod = 0.005
+    Act_rotate = "set_rotate"
+    Act_increase = "set_scale_increase"
+    Act_decrease = "set_scale_decrease"
+    Act_mirror = "mirror"
     def __init__(self, pixmap, name, parent=None, scene=None,
                  geometry=None, press_method_name=None):
         super().__init__()
@@ -93,17 +97,17 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.setRotation(self.geometry['rotate'])
 
     def set_scale_increase(self, **kwargs):
-        self._scale += self.scale_mod
-        self.setScale(self._scale)
+        self.geometry['scale'] += self.scale_mod
+        self.setScale(self.geometry['scale'])
 
     def set_scale_decrease(self, **kwargs):
-        self._scale -= self.scale_mod
-        self.setScale(self._scale)
+        self.geometry['scale'] -= self.scale_mod
+        self.setScale(self.geometry['scale'])
 
     def mirror(self):
         self.prepareGeometryChange()
         self.scale(-1, 1)
-        if not self._mirror:
+        if not self.geometry['mirror']:
             self.moveBy(self.get_pixmap_size, 0)
             self.geometry['mirror'] = not self.geometry['mirror']
         else:
@@ -121,7 +125,7 @@ class View(QtGui.QGraphicsView):
         super().__init__(*__args)
         self.setFixedSize(*size)
         self.setScene(scene)
-        # self.setDragMode(QtGui.QGraphicsView.RubberBandDrag)
+        self.setDragMode(QtGui.QGraphicsView.RubberBandDrag)
 
 
 class Scene(QtGui.QGraphicsScene):
@@ -162,6 +166,10 @@ class Scene(QtGui.QGraphicsScene):
     def selected_items(self):
         pass
         # print(self.selectedItems())
+
+    def zoom(self):
+        for item in self.selectedItems():
+            item.set_scale_increase()
 
 
 class TwoDisplay(QtGui.QWidget):

@@ -7,6 +7,7 @@
         <list>
           <option value="levels" />
           <option value="data.Data.get_data" />
+          <option value="object.split" />
         </list>
       </option>
     </inspection_tool>

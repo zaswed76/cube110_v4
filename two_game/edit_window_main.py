@@ -61,8 +61,7 @@ class BaseWindow(main_game_seq.BaseWindow):
                                   level_id=config["start_level_id"])
 
     def closeEvent(self, event):
-        print(self.game.level_id)
-        config["start_level_id"] = self.game.level_id
+        config["start_level_id"] = self.game.level_id - 1
         config.save()
 
     def set_current_level(self):
@@ -88,7 +87,7 @@ class BaseWindow(main_game_seq.BaseWindow):
         self.set_current_level()
 
     def zoom_out_(self):
-        self.set_current_level()
+        self.scene.zoom()
 
     def mirror_(self):
         print("mirror")

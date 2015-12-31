@@ -27,7 +27,17 @@ class ToolBar(QtGui.QFrame):
             if isinstance(but, int):
                 self.box.addSpacing(but)
                 continue
+            lst = but.split('|')
+            but = lst[0]
+
+            try:
+                auto_repeat = lst[1]
+            except IndexError:
+                auto_repeat = False
+
             self.buttons[but] = templates.ToolButton()
+            if auto_repeat:
+                self.buttons[but].setAutoRepeat(True)
 
             self.buttons[but].setStyleSheet(self._button_style)
             self.buttons[but].setFixedHeight(self.height-1)

@@ -24,4 +24,5 @@ class VBoxLayout(QtGui.QVBoxLayout):
 class ToolButton(QtGui.QPushButton):
     def __init__(self, *__args):
         super().__init__(*__args)
+        # self.setStyle(QtGui.QStyleFactory.create('Cleanlooks'))
 
