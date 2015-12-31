@@ -43,6 +43,15 @@ class Data(dict):
 
         self.update(self.get_data(self.path))
 
+    def save(self, obj, path=None):
+        if not isinstance(obj, dict):
+            raise Exception("obj может быть только dict")
+        if not obj: raise Exception("не может быть пуст")
+        if path is None:
+            path = self.path
+        with open(path, "w") as json_obj:
+            json.dump(obj, json_obj, indent=4)
+
 
 
 

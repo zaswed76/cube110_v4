@@ -12,6 +12,8 @@ def pass_press_method(**kwargs):
 
 
 class ImageItem(QtGui.QGraphicsPixmapItem):
+    rotate_mod = 3
+    scale_mod = 0.005
     def __init__(self, pixmap, name, parent=None, scene=None,
                  geometry=None, press_method_name=None):
         super().__init__()
@@ -27,7 +29,6 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.setPixmap(self._pixmap)
         self.move_start()
         self.allow_edit()
-
 
     def mousePressEvent(self, event):
         if self._main_press_method is not None:
@@ -66,6 +67,11 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
             self.scale(-1, 1)
 
 
+    def update_geometry(self):
+        self.geometry['x'] = self.pos().x()
+        self.geometry['y'] = self.pos().y()
+        self.geometry['scale'] = self.scale()
+
 
     @property
     def get_pixmap_size(self):
@@ -83,8 +89,8 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         mod = self.rotate_mod
         if delta < 0:
             mod = -mod
-        self._rotate += mod
-        self.setRotation(self._rotate)
+        self.geometry['rotate'] += mod
+        self.setRotation(self.geometry['rotate'])
 
     def set_scale_increase(self, **kwargs):
         self._scale += self.scale_mod
@@ -99,15 +105,16 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.scale(-1, 1)
         if not self._mirror:
             self.moveBy(self.get_pixmap_size, 0)
-            self._mirror = not self._mirror
+            self.geometry['mirror'] = not self.geometry['mirror']
         else:
             self.moveBy(-self.get_pixmap_size, 0)
-            self._mirror = not self._mirror
+            self.geometry['mirror'] = not self.geometry['mirror']
 
     def allow_edit(self):
         self.setFlags(
             QtGui.QGraphicsItem.ItemIsMovable | \
             QtGui.QGraphicsItem.ItemIsSelectable)
+
 
 class View(QtGui.QGraphicsView):
     def __init__(self, size, scene, parent, *__args):
@@ -136,13 +143,19 @@ class Scene(QtGui.QGraphicsScene):
             item.geometry = self._img_geomety[name]
             item.update_position()
 
-    def set_geometry(self, data):
-        self.__geometry = data
-        # print(self.__geometry)
 
     @property
-    def geometry(self):
-        return self.__geometry
+    def img_geomety(self):
+        self.update_items_geometry()
+        return self._img_geomety
+
+    def update_items_geometry(self):
+        for item in self.items():
+            item.update_geometry()
+
+    @img_geomety.setter
+    def img_geomety(self, data):
+        self._img_geomety = data
 
     def selected_items(self):
         pass

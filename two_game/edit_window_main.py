@@ -25,11 +25,11 @@ class BaseWindow(main_game_seq.BaseWindow):
     press_method_name = "press_method"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.imge_geometry = data.JsonData(json_file)
-        self.imge_geometry.load()
+        self.image_geometry = data.JsonData(json_file)
+        self.image_geometry.load()
         self.scene = graphics.Scene(self, scene_geometry,
                                     self.press_method_name,
-                                    self.imge_geometry)
+                                    self.image_geometry)
         self.display = graphics.View(size_display, self.scene, self)
         self.display.setStyleSheet(styles.default_display_css)
         self.add_display(self.display)
@@ -58,7 +58,8 @@ class BaseWindow(main_game_seq.BaseWindow):
         print('next')
 
     def save_(self):
-        print("save")
+        self.image_geometry.save(self.scene.img_geomety)
+
 
     def mirror_(self):
         print("mirror")
