@@ -4,8 +4,9 @@
 import sys
 import os
 import paths
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
 
+from libs import data
 from two_game.game import OneGameWindow
 from two_game import data_levels as levels
 from gui import main_game_seq, graphics, styles, tool
@@ -21,9 +22,14 @@ level_file = os.path.join(paths.get_data_dir(),
                           "edit_levels.json")
 
 class BaseWindow(main_game_seq.BaseWindow):
+    press_method_name = "press_method"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.scene = graphics.Scene(self, scene_geometry, self.press_method)
+        self.imge_geometry = data.JsonData(json_file)
+        self.imge_geometry.load()
+        self.scene = graphics.Scene(self, scene_geometry,
+                                    self.press_method_name,
+                                    self.imge_geometry)
         self.display = graphics.View(size_display, self.scene, self)
         self.display.setStyleSheet(styles.default_display_css)
         self.add_display(self.display)
@@ -36,12 +42,13 @@ class BaseWindow(main_game_seq.BaseWindow):
         self.add_tool(self.tool)
         self.set_tool_buttons("next", "mirror", "save")
 
-        self.data_levels = levels.Levels(level_file, paths.get_image_dir())
+        self.data_levels = levels.Levels(levels.Level, level_file, paths.get_image_dir())
         self.game = OneGameWindow(self.data_levels)
 
 
     def set_current_level(self):
         self.game.create_next_level()
+        self.scene.set_level(self.game.current_level)
 
 
     def press_method(self, name):

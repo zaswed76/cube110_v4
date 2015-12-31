@@ -12,42 +12,37 @@ def pass_press_method(**kwargs):
 
 
 class ImageItem(QtGui.QGraphicsPixmapItem):
-    def __init__(self, pixmap, name, parent=None, scene=None):
+    def __init__(self, pixmap, name, parent=None, scene=None,
+                 geometry=None, press_method_name=None):
         super().__init__()
+        self._geometry = geometry
         self._name = name
         self._parent = parent
         self._scene = scene
         self._pixmap = pixmap
-        self.geometry_link = None
-        self.geometry_item = dict(x=0,
-                                  y=0,
-                                  scale=1,
-                                  rotate=0,
-                                  mirror=False)
-
-        self._main_press_method = pass_press_method
-
+        self._main_press_method = press_method_name
 
         self.setTransformationMode(
-            QtCore.Qt.SmoothTransformation)
+                QtCore.Qt.SmoothTransformation)
         self.setPixmap(self._pixmap)
         self.move_start()
         self.allow_edit()
 
+
     def mousePressEvent(self, event):
-        self._main_press_method(name=self.name)
-    #
-    # def mouseReleaseEvent(self, event):
-    #     pass
-    #     # print()
-    #     # print(self.get_geometry())
+        if self._main_press_method is not None:
+            getattr(self._parent, self._main_press_method)(self._name)
 
     def set_main_press_method(self, method):
         self._main_press_method = method
 
-    def set_geometry(self, data):
-        self.geometry_link = data
-        self.geometry_item = self.geometry_link[self.name]
+    @property
+    def geometry(self):
+        return self._geometry
+
+    @geometry.setter
+    def geometry(self, geometry):
+        self._geometry = geometry
 
     @property
     def name(self):
@@ -63,30 +58,14 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
     def draw(self):
         self.setPixmap(self.pixmap)
 
-    def allow_edit(self):
-        self.setFlags(
-            QtGui.QGraphicsItem.ItemIsMovable | \
-            QtGui.QGraphicsItem.ItemIsSelectable)
-    #
-    # def disable_edit(self):
-    #     self.setFlags(QtGui.QGraphicsItem.ItemSendsGeometryChanges)
-
-    def get_geometry(self):
-        x, y = self.pos().x(), self.pos().y()
-        scale = self.scale()
-        rotate = self.geometry_item['rotate']
-        mirror = self.geometry_item['mirror']
-        # print([x, y], scale, rotate, mirror)
-
-    def restart_geometry(self):
-        self.setPos(self.geometry_item['x'], self.geometry_item['y'])
-        self.setScale(self.geometry_item['scale'])
-        self.setRotation(self.geometry_item['rotate'])
-        self._load_mirror()
-
-    def _load_mirror(self):
-        if self.geometry_item['mirror']:
+    def update_position(self):
+        self.setPos(self.geometry['x'], self.geometry['y'])
+        self.setScale(self.geometry['scale'])
+        self.setRotation(self.geometry['rotate'])
+        if self.geometry['mirror']:
             self.scale(-1, 1)
+
+
 
     @property
     def get_pixmap_size(self):
@@ -125,6 +104,10 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
             self.moveBy(-self.get_pixmap_size, 0)
             self._mirror = not self._mirror
 
+    def allow_edit(self):
+        self.setFlags(
+            QtGui.QGraphicsItem.ItemIsMovable | \
+            QtGui.QGraphicsItem.ItemIsSelectable)
 
 class View(QtGui.QGraphicsView):
     def __init__(self, size, scene, parent, *__args):
@@ -134,20 +117,24 @@ class View(QtGui.QGraphicsView):
         # self.setDragMode(QtGui.QGraphicsView.RubberBandDrag)
 
 
-
 class Scene(QtGui.QGraphicsScene):
-    def __init__(self, parent, scene_geometry, main_method_press):
+    def __init__(self, parent, scene_geometry, main_method_press,
+                 img_geomety):
         super().__init__()
+        self._img_geomety = img_geomety
+        self.parent = parent
         self.main_method_press = main_method_press
         self.setSceneRect(*scene_geometry)
-        self.__geometry = {}
 
-    def add_items(self, *items):
-        for item in items:
+
+    def set_level(self, level):
+        for name, path in level:
+            pixmap = QtGui.QPixmap(path)
+            item = ImageItem(pixmap, name, self.parent, self,
+                             press_method_name=self.main_method_press)
             self.addItem(item)
-            item.set_geometry(self.__geometry)
-            item.restart_geometry()
-            item.set_main_press_method(self.main_method_press)
+            item.geometry = self._img_geomety[name]
+            item.update_position()
 
     def set_geometry(self, data):
         self.__geometry = data
