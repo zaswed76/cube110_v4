@@ -135,6 +135,8 @@ class Scene(QtGui.QGraphicsScene):
 
 
     def set_level(self, level):
+        if self.items():
+            self.clear()
         for name, path in level:
             pixmap = QtGui.QPixmap(path)
             item = ImageItem(pixmap, name, self.parent, self,

@@ -1,0 +1,24 @@
+{
+  "tool_icon_size": 25,
+  "size_display": [
+    604,
+    604
+  ],
+  "height_tool": 35,
+  "EXT": ".png",
+  "scene_geometry": [
+    0,
+    0,
+    600,
+    600
+  ],
+  "tool_buttons": [
+    "prev",
+    "next",
+    "zoom_in",
+    "zoom_out",
+    "mirror",
+    "save"
+  ],
+  "start_level_id": 1
+}
