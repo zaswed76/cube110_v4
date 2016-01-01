@@ -1,13 +1,10 @@
 {
-  "start_level_id": -1,
-  "tool_icon_size": 22,
-  "EXT": ".png",
-  "scene_geometry": [
-    0,
-    0,
-    600,
-    600
+  "height_tool": 30,
+  "size_display": [
+    604,
+    604
   ],
+  "EXT": ".png",
   "tool_buttons": [
     "board",
     "prev",
@@ -18,9 +15,12 @@
     "save",
     "settings"
   ],
-  "height_tool": 30,
-  "size_display": [
-    604,
-    604
+  "tool_icon_size": 22,
+  "start_level_id": -1,
+  "scene_geometry": [
+    0,
+    0,
+    600,
+    600
   ]
 }
