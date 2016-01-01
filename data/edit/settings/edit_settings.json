@@ -1,22 +1,24 @@
 {
-  "height_tool": 35,
-  "tool_icon_size": 25,
+  "start_level_id": -1,
+  "tool_icon_size": 22,
+  "EXT": ".png",
   "scene_geometry": [
     0,
     0,
     600,
     600
   ],
-  "EXT": ".png",
-  "start_level_id": -1,
   "tool_buttons": [
+    "board",
     "prev",
     "next",
     "zoom_in|true",
     "zoom_out|true",
     "mirror",
-    "save"
+    "save",
+    "settings"
   ],
+  "height_tool": 30,
   "size_display": [
     604,
     604

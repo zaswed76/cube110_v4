@@ -11,11 +11,11 @@ from two_game.game import OneGameWindow
 from two_game import data_levels as levels
 from gui import main_game_seq, graphics, styles, tool
 
-json_file = os.path.join(paths.get_data_dir(),
+json_file = os.path.join(paths.get_edit_profiles(),
                          "base_geometry_dict.json")
-level_file = os.path.join(paths.get_data_dir(),
+level_file = os.path.join(paths.get_edit_levels(),
                           "edit_levels.json")
-settings_file = os.path.join(paths.get_data_dir(),
+settings_file = os.path.join(paths.get_edit_settings(),
                              "edit_settings.json")
 
 config = data.JsonData(settings_file)
@@ -70,9 +70,17 @@ class BaseWindow(main_game_seq.BaseWindow):
 
 
     def press_method(self, name):
-        print(name)
+        self.game.current_level.press_object(name)
+
+    def L_go_to_level(self, level):
+        self.game.level_id = level
+        self.set_current_level()
 
     #---- методы панели инструментов --------------------------------
+
+    def board_(self):
+        self.game.return_to_start()
+        self.set_current_level()
 
     def prev_(self):
         self.game.decrease_level_id()
@@ -82,18 +90,21 @@ class BaseWindow(main_game_seq.BaseWindow):
         self.game.increase_level_id()
         self.set_current_level()
 
-
     def zoom_in_(self):
-        self.set_current_level()
+        self.scene.zoom_in()
 
     def zoom_out_(self):
-        self.scene.zoom()
+        self.scene.zoom_out()
 
     def mirror_(self):
-        print("mirror")
+        self.scene.mirror()
 
     def save_(self):
         self.image_geometry.save(self.scene.img_geomety)
+
+    def settings_(self):
+        print("settings")
+
 
 
 

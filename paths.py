@@ -12,6 +12,12 @@ __RESOURCE = "resources"
 # /
 __CSS = "css"
 __DATA = "data"
+# /data
+__EDIT = "edit"
+# /data/edit
+__PROFILES = "profiles"
+__SETTINGS = "settings"
+__LEVELS = "levels"
 
 # ./resources
 __ICONS = "icons"
@@ -46,7 +52,14 @@ def get_css_dir():
 def get_data_dir():
     return os.path.join(get_root(), __DATA)
 
+def get_edit_profiles():
+    return os.path.join(get_data_dir(), __EDIT, __PROFILES)
 
+def get_edit_settings():
+    return os.path.join(get_data_dir(), __EDIT, __SETTINGS)
+
+def get_edit_levels():
+    return os.path.join(get_data_dir(), __EDIT, __LEVELS)
 
 if __name__ == '__main__':
     pass

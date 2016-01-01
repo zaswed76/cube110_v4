@@ -10,6 +10,7 @@ class Game:
     def __init__(self, data_levels, level_id=DEFAULT_START_LEVEL_ID):
         self._level_id = level_id
         self._data_levels = data_levels
+        print(self._data_levels)
         self._count_levels = len(self._data_levels)
         self._current_level = None
 
@@ -41,6 +42,9 @@ class Game:
         level = self._data_levels[self.level_id]
         self._current_level = getattr(
             levels, level.name)(level)
+
+    def return_to_start(self):
+        self.level_id = DEFAULT_START_LEVEL_ID + 1
 
 
     def set_data_level(self, data_levels):

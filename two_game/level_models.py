@@ -42,6 +42,15 @@ class EditLevel(Levels):
     def press_object(self, name_image):
         return "EditLevel"
 
+class EditContentLevel(Levels):
+    def __init__(self, level):
+        super().__init__(level)
+
+
+    def press_object(self, name_image):
+        print(name_image)
+        return "EditLevel"
+
 
 
 if __name__ == '__main__':

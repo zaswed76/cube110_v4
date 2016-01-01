@@ -104,7 +104,7 @@ class ImageItem(QtGui.QGraphicsPixmapItem):
         self.geometry['scale'] -= self.scale_mod
         self.setScale(self.geometry['scale'])
 
-    def mirror(self):
+    def set_mirror(self):
         self.prepareGeometryChange()
         self.scale(-1, 1)
         if not self.geometry['mirror']:
@@ -167,9 +167,23 @@ class Scene(QtGui.QGraphicsScene):
         pass
         # print(self.selectedItems())
 
-    def zoom(self):
+    def zoom_in(self):
         for item in self.selectedItems():
             item.set_scale_increase()
+
+    def zoom_out(self):
+        for item in self.selectedItems():
+            item.set_scale_decrease()
+
+    def mirror(self):
+        for item in self.selectedItems():
+            item.set_mirror()
+
+    def wheelEvent(self, event):
+        for item in self.selectedItems():
+            item.set_rotate(delta=event.delta())
+
+
 
 
 class TwoDisplay(QtGui.QWidget):
