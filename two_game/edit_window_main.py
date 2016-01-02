@@ -70,11 +70,16 @@ class BaseWindow(main_game_seq.BaseWindow):
 
 
     def press_method(self, name):
-        self.game.current_level.press_object(name)
+        method, arg = self.game.current_level.press_object(name)
+        getattr(self, method)(arg)
+
 
     def L_go_to_level(self, level):
         self.game.level_id = level
         self.set_current_level()
+
+    def L_pass_method(self, arg):
+        print(arg)
 
     #---- методы панели инструментов --------------------------------
 

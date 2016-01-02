@@ -32,7 +32,7 @@ class RememberLevel(Levels):
         super().__init__(level)
 
     def press_object(self, name_image):
-        return "RememberLevel"
+        return "L_pass_method", name_image
 
 class EditLevel(Levels):
     def __init__(self, level):
@@ -40,16 +40,19 @@ class EditLevel(Levels):
 
 
     def press_object(self, name_image):
-        return "EditLevel"
+        return "L_pass_method", name_image
 
 class EditContentLevel(Levels):
     def __init__(self, level):
         super().__init__(level)
 
 
+
     def press_object(self, name_image):
-        print(name_image)
-        return "EditLevel"
+        id = self.level.base_seq.index(name_image)
+        method = "L_go_to_level"
+        return method, id
+
 
 
 

@@ -10,7 +10,6 @@ class Game:
     def __init__(self, data_levels, level_id=DEFAULT_START_LEVEL_ID):
         self._level_id = level_id
         self._data_levels = data_levels
-        print(self._data_levels)
         self._count_levels = len(self._data_levels)
         self._current_level = None
 

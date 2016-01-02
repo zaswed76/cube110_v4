@@ -102,7 +102,6 @@ class Levels(OrderedDict):
     def create_levels(self):
         for n, level_line in enumerate(self._get_data):
             level = self.level_type(self.image_dir, *level_line)
-
             self[n] = level
 
 

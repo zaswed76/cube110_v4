@@ -20,7 +20,11 @@ class ToolBar(QtGui.QFrame):
         self.icon_size = icon_size
         self._button_style = None
 
-        self.buttons = {}
+        self.button = {}
+
+    @staticmethod
+    def get_full_path(icon_dir, icon_name, ext):
+        return os.path.join(icon_dir, icon_name + ext)
 
     def add_buttons(self, *names):
         for but in names:
@@ -35,25 +39,24 @@ class ToolBar(QtGui.QFrame):
             except IndexError:
                 auto_repeat = False
 
-            self.buttons[but] = templates.ToolButton()
-            if auto_repeat:
-                self.buttons[but].setAutoRepeat(True)
 
-            self.buttons[but].setStyleSheet(self._button_style)
-            self.buttons[but].setFixedHeight(self.height-1)
+            self.button[but] = templates.ToolButton(self.icon_dir,
+                                                    but, self.ext,
+                                                    state="enabled")
+            if auto_repeat:
+                self.button[but].setAutoRepeat(True)
+
+            self.button[but].setStyleSheet(self._button_style)
+            self.button[but].setFixedHeight(self.height - 1)
             method_name = but + "_"
-            self.buttons[but].clicked.connect(
+            self.button[but].clicked.connect(
                 partial(self.press_button, method_name))
-            icon_path = os.path.join(self.icon_dir, but + self.ext)
-            if os.path.isfile(icon_path):
-                self.buttons[but].setIcon(QtGui.QIcon(icon_path))
-                if self.icon_size is not None:
-                    self.buttons[but].setIconSize(
-                        QtCore.QSize(self.icon_size,
+
+            if self.icon_size is not None:
+                self.button[but].setIconSize(
+                    QtCore.QSize(self.icon_size,
                                      self.icon_size))
-            else:
-                self.buttons[but].setText(but)
-            self.box.addWidget(self.buttons[but])
+            self.box.addWidget(self.button[but])
 
     def set_button_style(self, style):
         """
@@ -64,3 +67,8 @@ class ToolBar(QtGui.QFrame):
 
     def press_button(self, name):
         getattr(self.parent, name)()
+
+    def set_icon(self, button_name, icon_name):
+        pth = self.get_full_path(self.icon_dir, icon_name, self.ext)
+        self.button[button_name].setIcon(QtGui.QIcon(pth))
+
