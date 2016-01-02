@@ -1,28 +1,25 @@
 
 
 
-class Iter:
-    def __init__(self, x, y):
-        self.y = y
-        self.x = x
-        self.data = list(zip(self.x, self.y))
-
-    def __iter__(self):
-        self.id = 0
-        return self
-
-    def __next__(self):
-        if self.id == len(self.x):
-            raise StopIteration
-        else:
-            res = self.data[self.id]
-            self.id += 1
-            return res
 
 
-a = [1, 2, 3]
-b = [7, 8, 9]
-i = Iter(a, b)
-for x in i:
-    print(x)
 
+
+class But:
+    _config = {"dir": None, "ext": ".png", "height": "25"}
+    def __init__(self, name):
+        self.name = name
+
+    @classmethod
+    def set_config(cls, opt, value):
+        cls._config[opt] = value
+
+    def set_icon(self):
+        print(self._config["dir"] + "_" + self.name)
+
+
+But.set_config("dir", "/dir")
+
+
+b = But("b1")
+b.dis()

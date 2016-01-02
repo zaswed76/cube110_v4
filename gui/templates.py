@@ -28,8 +28,8 @@ class VBoxLayout(QtGui.QVBoxLayout):
         self.setSpacing(_spacing)
 
 class ToolButton(QtGui.QPushButton):
-    _disabled = "_disabled"
-    _enabled = "_enabled"
+    _dir = None
+    _ext = ".png"
     def __init__(self, dir, icon_name, ext, state="normal"):
         super().__init__()
         self.state = state
