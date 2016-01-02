@@ -6,7 +6,7 @@ from PyQt4 import QtGui
 
 class Config:
     def __init__(self):
-        self.margin =
+        self.margin = 0
 
 class ToolButton(QtGui.QPushButton):
     def __init__(self, *__args):
